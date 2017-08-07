@@ -18,11 +18,11 @@ var articalone={
         </p>
         <p>
             This is wonder full course. 
-        </p>
+        </p>`
 };
 function createTemplate (data) {
     var title = data.title;
-    var data = data.data;
+    var date= data.date;
     var heading = data.heading;
     var content = data.content;
 
