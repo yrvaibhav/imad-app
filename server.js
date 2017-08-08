@@ -6,7 +6,8 @@ var app = express();
 app.use(morgan('combined'));
 
 
-var articalone={
+var articals = {
+'artical-1' : {
     title: 'Artical one | Vaibhav YR',
     heading: 'Artical one',
     date: 'August 3 2017',
@@ -19,7 +20,37 @@ var articalone={
         <p>
             This is wonder full course. 
         </p>`
+},
+'artical-2' : {
+    title: 'Artical two | Vaibhav YR',
+    heading: 'Artical two',
+    date: 'August 3 2017',
+    content: ` <p>
+            This is the conent for my second artical.
+        </p>
+        <p>
+            I'm happy in doing this.
+        </p>
+        <p>
+            This is wonder full course. 
+        </p>`
+},
+'artical-3' : {
+    title: 'Artical three | Vaibhav YR',
+    heading: 'Artical three',
+    date: 'August 3 2017',
+    content: ` <p>
+            This is the conent for my three artical.
+        </p>
+        <p>
+            I'm happy in doing this.
+        </p>
+        <p>
+            This is wonder full course. 
+        </p>`
+}
 };
+
 function createTemplate (data) {
     var title = data.title;
     var date= data.date;
@@ -56,20 +87,16 @@ function createTemplate (data) {
     `;
     return htmlTemplate;
 }
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/artical-1',function(req,res){
-    res.send(createTemplate(articalone));
-});
-
-app.get('/artical-2',function(req,res){
-    res.sendFile(path.join(__dirname, 'ui', 'artical-two.html'));
-});
-
-app.get('/artical-3',function(req,res){
-    res.sendFile(path.join(__dirname, 'ui', 'artical-three.html'));
+app.get('/:articalName',function(req,res){
+    //articalName == artical-1
+    //articales[articalName] == {} content object for artical one
+    var aticalName = req.params.articalName;
+    res.send(createTemplate(articals[articalName]));
 });
 
 app.get('/ui/style.css', function (req, res) {
