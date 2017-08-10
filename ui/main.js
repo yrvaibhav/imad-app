@@ -1,15 +1,26 @@
 //Counter code
 var button = document.getElementById('counter');
-var counter=0;
+
 
 button.onclick = function () {
   
-  //Make a request to the endpoint
+  //Create a request object
+  var request = new XMLhttpRequest();
   
   //Capture the responce and store it in variable
+  request.onreadystatechange = function() {
+    if(request.readyState ===XMLhttpRequest.DONE) {
+        //Take some action
+        if(request.status === 200) {
+            var counter = request.responseText;
+            var span=document.getElementById('count');
+            span.innerHTML = counter.toString();
+        }
+    }  
+    //Not done yet
+  };
   
-  //Reader the variable in the correct span
-  counter = counter + 1;
-  var span=document.getElementById('count');
-  span.innerHTML = counter.toString();
+  //Make the request
+  request.open('GET','http://yrvaibhav.imad.hasura-app.io/counter',true);
+  request.send(null);
 };
